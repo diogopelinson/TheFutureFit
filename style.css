@@ -625,6 +625,140 @@ a:hover {
 }
 
 
+@media (max-width: 768px) {
+    .barra-topo.menu-aberto {
+        background-color: rgba(255, 255, 255, 0.98);
+    }
+    .navegacao-principal {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--fundo-branco);
+        border-top: 1px solid var(--cor-cinza-medio);
+        padding: var(--unidade-espacamento) 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .navegacao-principal.ativa {
+        display: flex;
+    }
+    .navegacao-principal ul {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 0;
+    }
+    .navegacao-principal ul li {
+        width: 100%;
+        text-align: center;
+    }
+    .navegacao-principal ul li a {
+        display: block;
+        padding: calc(var(--unidade-espacamento) * 1.75) calc(var(--unidade-espacamento) * 2);
+        color: var(--texto-primario);
+        width: 100%;
+    }
+    .navegacao-principal ul li a::after {
+        display: none;
+    }
+
+    .alternador-menu-mobile {
+        display: block;
+    }
+    .acoes-cabecalho .botao-cta-navegacao {
+        display: none;
+    }
+
+    .secao-heroi {
+        padding-top: calc(var(--unidade-espacamento) * 10); /* Reduzir padding superior */
+        min-height: auto; /* Deixar a altura se ajustar ao conteúdo */
+        padding-bottom: calc(var(--unidade-espacamento) * 6); /* Padding inferior menor */
+        display: flex; /* Mudar para flex para melhor controle do alinhamento */
+        flex-direction: column; /* Empilhar os itens */
+        align-items: center; /* Centralizar os itens horizontalmente */
+        text-align: center;
+    }
+    .secao-heroi .conteiner-heroi { /* Este é o container que tem o .conteudo-heroi e o .visual-heroi (com a imagem) */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        padding: 0;
+    }
+    .conteudo-heroi {
+        max-width: 95%;
+        text-align: center;
+        padding-right: 0;
+        margin-bottom: calc(var(--unidade-espacamento) * 4); /* Aumentar espaço abaixo do texto */
+        order: 1; /* Garante que o texto venha primeiro */
+    }
+    .visual-heroi { /* O container da imagem precisa ser reposicionado se não for mais absoluto */
+        position: relative; /* Para que z-index e dimensionamento funcionem no fluxo */
+        width: 100%; /* Ocupar a largura para centralizar o filho */
+        display: flex;
+        justify-content: center;
+        order: 2; /* Garante que a imagem venha depois do texto */
+        margin-top: calc(var(--unidade-espacamento) * 4); /* Adiciona espaço acima da imagem */
+    }
+    .imagem-fundo-heroi {
+        position: relative; /* Remove o posicionamento absoluto anterior */
+        /* right, top, transform:none; removidos pois não são mais absolutos */
+        width: clamp(240px, 65vw, 340px);  /* Tamanho ajustado para mobile */
+        height: clamp(240px, 65vw, 340px);
+        /* margin: calc(var(--unidade-espacamento) * 8) auto 0; Removido, o pai .visual-heroi controla o espaçamento */
+        opacity: 0.3;
+        z-index: auto; /* Não precisa de z-index alto se estiver no fluxo normal */
+        /* Estilos de background permanecem os mesmos */
+        background-image: url('./images/capa1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        filter: blur(5px); /* Reduzido o blur um pouco */
+    }
+    .secao-heroi h1 {
+        font-size: clamp(2rem, 7vw, 2.6rem); /* Ajustado para melhor leitura */
+    }
+
+
+    h1 { font-size: 2.2rem; } /* Ajustes gerais para mobile */
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.4rem; }
+    p { font-size: 0.95rem; }
+
+
+    .grade-recursos, .grade-beneficios, .pontos-confianca {
+        grid-template-columns: 1fr;
+        gap: calc(var(--unidade-espacamento) * 3);
+    }
+    .cartao-recurso, .cartao-beneficio, .pontos-confianca p {
+        padding: calc(var(--unidade-espacamento) * 3);
+    }
+
+    .secao-com-espacamento {
+        padding: calc(var(--unidade-espacamento) * 10) 0;
+    }
+    .introducao-secao {
+        font-size: 1.05rem;
+    }
+    .secao-cta h2 {
+        font-size: clamp(1.9rem, 5.5vw, 2.4rem);
+    }
+    .secao-cta p {
+        font-size: 1.05rem;
+    }
+    .botao-cta-final {
+        padding: calc(var(--unidade-espacamento) * 2.25) calc(var(--unidade-espacamento) * 4.5);
+        font-size: 1.15rem;
+    }
+
+
+    .conteudo-rodape {
+        flex-direction: column;
+    }
+}
 /* --- Ajustes Responsivos --- */
 @media (max-width: 992px) { /* Tablets */
     .imagem-fundo-heroi {
