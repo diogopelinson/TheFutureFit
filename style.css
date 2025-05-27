@@ -898,3 +898,60 @@ a:hover {
     border-radius: var(--raio-borda);
     box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.3);
 }
+
+/* Remova ou comente os estilos anteriores para .logotipo e .logotipo::after */
+
+.logotipo {
+  font-family: 'Plus Jakarta Sans', sans-serif; /* Exemplo, baseado no seu HTML */
+  font-size: 28px; /* Ajuste para o tamanho do seu logotipo */
+  font-weight: 800; /* Exemplo de peso (extra-bold) */
+  
+  /* Cores: defina a cor base do seu texto e a cor do destaque do brilho */
+  --cor-base-texto-logotipo: #333333;     /* Ex: Um cinza escuro para o texto */
+  --cor-destaque-brilho-logotipo: #AAAAAA; /* Ex: Um cinza mais claro para o brilho, ou outra cor de destaque */
+  /* Se o seu fundo for escuro, talvez queira cores claras:
+  --cor-base-texto-logotipo: #E0E0E0;
+  --cor-destaque-brilho-logotipo: #FFFFFF;
+  */
+
+  /* O gradiente será o fundo do texto */
+  background: linear-gradient(
+    90deg, /* Da esquerda para a direita */
+    var(--cor-base-texto-logotipo) 0%, 
+    var(--cor-base-texto-logotipo) 35%, /* Ponto onde o brilho começa a aparecer */
+    var(--cor-destaque-brilho-logotipo) 50%, /* Pico do brilho */
+    var(--cor-base-texto-logotipo) 65%, /* Ponto onde o brilho termina */
+    var(--cor-base-texto-logotipo) 100%
+  );
+  
+  /* O tamanho do fundo precisa ser maior que 100% para o efeito de movimento */
+  background-size: 250% 100%; /* Ajuste 250% para controlar a largura da "onda" de brilho */
+  
+  /* A mágica acontece aqui: o fundo é recortado para o formato do texto */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* O texto em si precisa ser transparente para que o fundo (o gradiente) apareça */
+  color: transparent; 
+  /* Para navegadores WebKit (Chrome, Safari, Edge), text-fill-color garante a transparência */
+  -webkit-text-fill-color: transparent; 
+  
+  /* Animação para mover o gradiente */
+  animation: shimmer-na-fonte 3s linear infinite; /* Ajuste a duração (3s) conforme desejado */
+
+  /* Garante que o elemento se ajuste ao conteúdo do texto */
+  display: inline-block; 
+  /* Para evitar quebras de linha inesperadas se o nome for longo e o espaço limitado */
+  white-space: nowrap; 
+}
+
+/* Definição da animação */
+@keyframes shimmer-na-fonte {
+  0% {
+    background-position: 100% 0; /* Começa com a parte "brilhante" do gradiente mais à direita */
+  }
+  100% {
+    background-position: -100% 0; /* Move a parte "brilhante" do gradiente para a esquerda */
+  }
+}
+
