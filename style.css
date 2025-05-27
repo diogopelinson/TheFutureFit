@@ -18,14 +18,14 @@
     --texto-primario: var(--cor-preto);
     --texto-secundario: var(--cor-cinza-escuro);
     --texto-sobre-escuro: var(--cor-branco);
-    --texto-heroi: var(--cor-preto); /* Texto do herói sobre fundo claro */
+    --texto-heroi: var(--cor-preto);
     --cor-subtitulo-heroi-novo: var(--cor-cinza-escuro);
 
 
     --fundo-claro: var(--cor-cinza-super-claro);
     --fundo-escuro: var(--cor-preto);
     --fundo-branco: var(--cor-branco);
-    --fundo-secao-heroi-novo: var(--cor-branco); /* Fundo da seção herói */
+    --fundo-secao-heroi-novo: var(--cor-branco);
 
 
     --unidade-espacamento: 8px;
@@ -35,6 +35,7 @@
     --sombra-leve: 0 2px 8px rgba(0,0,0,0.07);
     --sombra-media: 0 5px 15px rgba(0,0,0,0.1);
     --sombra-forte: 0 8px 25px rgba(0,0,0,0.15);
+    --sombra-card-elevado: 0 12px 35px rgba(0,0,0,0.2); /* Sombra para card elevado */
 }
 
 * {
@@ -96,7 +97,7 @@ a {
 }
 
 a:hover {
-    color: var(--cor-destaque-azul-escuro);
+    color: var(--cor-preto);
 }
 
 /* --- Botões --- */
@@ -110,9 +111,10 @@ a:hover {
     text-decoration: none;
     border-radius: var(--raio-borda);
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, color 0.3s ease;
     border: none;
     font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    text-align: center;
 }
 
 .botao-primario {
@@ -122,9 +124,7 @@ a:hover {
 }
 
 .botao-primario:hover {
-    background-color: var(--cor-destaque-azul-escuro);
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 7px 18px rgba(59, 130, 246, 0.45);
 }
 
 
@@ -196,7 +196,33 @@ a:hover {
 .acoes-cabecalho .botao-cta-navegacao {
     padding: calc(var(--unidade-espacamento) * 1.35) calc(var(--unidade-espacamento) * 2.75);
     font-size: 0.95rem;
+    position: relative; /* Para efeito de preenchimento */
+    overflow: hidden;
+    z-index: 1;
+    border: 2px solid var(--cor-destaque-azul);
+    color: var(--cor-destaque-azul);
+    background-color: transparent;
 }
+.acoes-cabecalho .botao-cta-navegacao::before { /* Efeito de preenchimento */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--cor-destaque-azul);
+    transition: width 0.4s ease-in-out;
+    z-index: -1;
+}
+.acoes-cabecalho .botao-cta-navegacao:hover {
+    color: var(--cor-branco);
+    border-color: var(--cor-destaque-azul); /* Mantém a borda ou remove se preenchido */
+    box-shadow: 0 7px 18px rgba(59, 130, 246, 0.3);
+}
+.acoes-cabecalho .botao-cta-navegacao:hover::before {
+    width: 100%;
+}
+
 
 .alternador-menu-mobile {
     display: none;
@@ -239,32 +265,42 @@ a:hover {
     transform: translateY(-50%);
     width: clamp(400px, 55vw, 700px);
     height: clamp(400px, 55vw, 700px);
-    background-image: url('./images/capa1.jpg'); 
-    background-size: cover; /* Mude para 'contain' se sua imagem já for um círculo perfeito */
+    background-image: url('./images/capa1.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 50%;
     opacity: 0.6;
     filter: blur(5px);
     z-index: 1;
+    animation: flutuar-suave 12s infinite ease-in-out alternate; /* Animação adicionada */
+}
+
+@keyframes flutuar-suave { /* Animação para a imagem do herói */
+    0% {
+        transform: translateY(-50%) translateX(0px) scale(1);
+        opacity: 0.55;
+    }
+    100% {
+        transform: translateY(-45%) translateX(10px) scale(1.02);
+        opacity: 0.65;
+    }
 }
 
 .secao-heroi .conteiner-heroi {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Alinha o conteúdo à esquerda */
-    width: 100%; /* Ocupa toda a largura do .conteiner pai */
-    /* max-width: 1140px;  Herda do .conteiner pai */
-    /* margin: 0 auto; Herda do .conteiner pai */
+    justify-content: flex-start;
+    width: 100%;
     position: relative;
     z-index: 2;
 }
 
 .conteudo-heroi {
-    max-width: 50%; /* O texto ocupa a metade esquerda */
+    max-width: 50%;
     z-index: 2;
     text-align: left;
-    padding-right: calc(var(--unidade-espacamento) * 4); /* Espaço para o orbe não colar */
+    padding-right: calc(var(--unidade-espacamento) * 4);
 }
 
 .secao-heroi h1 {
@@ -283,19 +319,28 @@ a:hover {
 }
 
 .botao-cta-heroi {
-    padding: calc(var(--unidade-espacamento) * 2) calc(var(--unidade-espacamento) * 4);
+    flex-direction: column;
+    align-items: center;
+    padding: calc(var(--unidade-espacamento) * 1.75) calc(var(--unidade-espacamento) * 3);
     font-size: 1.1rem;
+    line-height: 1.3;
 }
 .botao-cta-heroi:hover {
-    transform: translateY(-3px);
+    background-color: var(--cor-destaque-azul-escuro);
     box-shadow: 0 7px 18px rgba(59, 130, 246, 0.40);
+    /* A cor do texto já é var(--cor-branco) no .botao-primario e não é alterada no hover geral */
+}
+
+.botao-cta-heroi .texto-principal-botao {
+    display: inline-flex;
+    align-items: center;
 }
 
 .botao-cta-heroi .disponibilidade-cta {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    margin-top: calc(var(--unidade-espacamento) * 0.65);
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-top: calc(var(--unidade-espacamento) * 0.75);
     opacity: 0.9;
 }
 
@@ -346,7 +391,8 @@ a:hover {
     text-align: center;
     box-shadow: var(--sombra-media);
     border: 1px solid transparent;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease, outline 0.2s ease;
+    cursor: pointer; /* Indica que é clicável */
 }
 .cartao-recurso:hover {
     transform: translateY(-8px) scale(1.02);
@@ -358,7 +404,18 @@ a:hover {
     display: block;
     margin-bottom: calc(var(--unidade-espacamento) * 2);
     color: var(--cor-destaque-azul);
+    transition: transform 0.3s ease-in-out; /* Transição para o ícone */
 }
+.cartao-recurso:hover .icone-recurso {
+    transform: scale(1.15) rotate(-5deg); /* Animação do ícone no hover do card */
+}
+
+/* Efeito de card elevado ao clicar */
+.cartao-elevado {
+    transform: translateY(-12px) scale(1.04);
+    box-shadow: var(--sombra-card-elevado), 0 0 0 2px var(--cor-destaque-azul);
+}
+
 
 /* --- Grade de Benefícios --- */
 .grade-beneficios {
@@ -372,7 +429,8 @@ a:hover {
     border-radius: var(--raio-borda);
     border: 1px solid var(--cor-cinza-medio);
     box-shadow: var(--sombra-media);
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), outline 0.2s ease;
+    cursor: pointer; /* Indica que é clicável */
 }
 .cartao-beneficio:hover {
     transform: translateY(-8px) scale(1.02);
@@ -391,6 +449,10 @@ a:hover {
     border-radius: 50%;
     line-height: 1;
     box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4);
+    transition: transform 0.3s ease-in-out; /* Transição para o ícone */
+}
+.cartao-beneficio:hover .icone-beneficio {
+    transform: scale(1.15) rotate(5deg); /* Animação do ícone no hover do card */
 }
 .cartao-beneficio h3 {
     margin-top: var(--unidade-espacamento);
@@ -482,13 +544,13 @@ a:hover {
 .botao-cta-final {
     padding: calc(var(--unidade-espacamento) * 2.5) calc(var(--unidade-espacamento) * 5.5);
     font-size: 1.3rem;
-    background-color: var(--cor-destaque-verde);
+    background-color: var(--cor-preto);
     color: var(--cor-branco);
     box-shadow: 0 6px 22px rgba(16, 185, 129, 0.4);
+    flex-direction: column;
+    align-items: center;
 }
 .botao-cta-final:hover {
-    background-color: var(--cor-destaque-verde-escuro);
-    color: var(--cor-branco);
     transform: translateY(-4px) scale(1.03);
     box-shadow: 0 9px 28px rgba(16, 185, 129, 0.5);
 }
@@ -688,6 +750,7 @@ a:hover {
         padding: calc(var(--unidade-espacamento) * 2.25) calc(var(--unidade-espacamento) * 4.5);
         font-size: 1.15rem;
     }
+
 
     .conteudo-rodape {
         flex-direction: column;

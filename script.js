@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mudar fundo do header ao rolar
     if (barraTopo) {
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 30) { // Limiar menor para efeito mais rápido
+            if (window.scrollY > 30) { 
                 barraTopo.classList.add('rolada');
             } else {
                 barraTopo.classList.remove('rolada');
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(ancora => {
         ancora.addEventListener('click', function (evento) {
             const idAlvo = this.getAttribute('href');
-            if (idAlvo === "#") { // Evita erro se for só "#"
+            if (idAlvo === "#") { 
                 evento.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
 
-                // Fecha o menu mobile se estiver aberto após clicar em um link
                 if (navegacao && navegacao.classList.contains('ativa')) {
                     navegacao.classList.remove('ativa');
                     barraTopo.classList.remove('menu-aberto');
@@ -100,6 +99,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     elementosParaAnimar.forEach(el => {
         observer.observe(el);
+    });
+
+    // Efeito de clique nos cards
+    const cardsClicaveis = document.querySelectorAll('.cartao-recurso, .cartao-beneficio');
+    cardsClicaveis.forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.toggle('cartao-elevado');
+        });
+        // Adicionar acessibilidade para teclado
+        // card.setAttribute('tabindex', '0'); // Já adicionado no HTML
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault(); 
+                this.click(); 
+            }
+        });
     });
 
     console.log("Script The Future Fit: Funcionalidades de UI aprimoradas e animações ativas.");
